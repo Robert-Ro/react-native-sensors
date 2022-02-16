@@ -49,10 +49,10 @@
   "license": "MIT",
   "peerDependencies": {
     "prop-types": "^15.6.0",
-    "react-native": ">=0.39.0"
+    "react-native": ">=0.57.7"
   },
   "dependencies": {
-    "rxjs": ">= 6"
+    "rxjs": ">= 7"
   },
   "devDependencies": {
     "all-contributors-cli": "6.1.2",

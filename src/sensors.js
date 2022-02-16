@@ -1,6 +1,6 @@
 import { NativeEventEmitter, NativeModules } from "react-native";
-import { Observable } from "rxjs";
-import { publish, refCount } from "rxjs/operators";
+import { Observable } from "rxjs/Observable";
+import { share } from "rxjs/internal/operators/share";
 import * as RNSensors from "./rnsensors";
 
 const {
@@ -40,7 +40,7 @@ const eventEmitterSubscription = new Map([
 ]);
 
 function createSensorObservable(sensorType) {
-  return Observable.create(function subscribe(observer) {
+  return new Observable(function subscribe(observer) {
     this.isSensorAvailable = false;
 
     this.unsubscribeCallback = () => {
@@ -77,7 +77,7 @@ function createSensorObservable(sensorType) {
 
 // As we only have one sensor we need to share it between the different consumers
 function makeSingleton() {
-  return (source) => source.pipe(publish(), refCount());
+  return (source) => source.pipe(share());
 }
 
 const accelerometer = createSensorObservable("accelerometer");
